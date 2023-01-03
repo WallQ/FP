@@ -3,4 +3,4 @@ project(FP7 C)
 
 set(CMAKE_C_STANDARD 17)
 
-add_executable(FP7 main.c Part1/1/main.c Part1/2/main.c Part1/3/main.c Part1/4/main.c Part1/5/main.c Part2/1/main.c Part2/2/main.c Part2/3/main.c Part2/4/main.c)
+add_executable(FP7 main.c Part1/main.c Part1/menu.c Part1/menu.h Part1/input.c Part1/input.h Part1/student.c Part1/student.h Part2/main.c)

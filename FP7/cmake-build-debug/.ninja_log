@@ -1,0 +1,8 @@
+# ninja log v5
+0	262	6930003163999588	CMakeFiles/FP7.dir/main.c.obj	bf12d66c68a0a60c
+1	277	6930004462384595	CMakeFiles/FP7.dir/Part1/menu.c.obj	b13e324aa45ea66a
+263	387	6930003165229575	FP7.exe	93cf8bc3a2af2880
+1	106	6930005060259085	build.ninja	6d2659ed4e87667e
+20	280	6930004462414594	CMakeFiles/FP7.dir/Part1/student.c.obj	22175da7d1afc3db
+15	285	6930004462474590	CMakeFiles/FP7.dir/Part1/input.c.obj	742fc559afbedb23
+18	284	6930004462454592	CMakeFiles/FP7.dir/Part1/main.c.obj	4fb05879151ba716
