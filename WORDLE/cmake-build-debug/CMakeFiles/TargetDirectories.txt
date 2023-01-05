@@ -1,0 +1,3 @@
+C:/Users/WallQ-/Desktop/WORDLE/cmake-build-debug/CMakeFiles/WORDLE.dir
+C:/Users/WallQ-/Desktop/WORDLE/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/WallQ-/Desktop/WORDLE/cmake-build-debug/CMakeFiles/rebuild_cache.dir
