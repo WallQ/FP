@@ -1,0 +1,3 @@
+C:/Users/WallQ-/Desktop/EXAM 2/cmake-build-debug/CMakeFiles/EXAM_2.dir
+C:/Users/WallQ-/Desktop/EXAM 2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/WallQ-/Desktop/EXAM 2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
