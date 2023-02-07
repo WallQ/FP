@@ -31,6 +31,6 @@ int freeClassrooms(Classrooms *classrooms);
 
 int markAttendances(Classrooms *classrooms, char *name);
 
-void saveClassrooms(Classrooms classrooms, char *fileName);
+void saveClassrooms(Classrooms *classrooms, char *fileName);
 
 #endif
