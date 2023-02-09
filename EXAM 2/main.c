@@ -12,7 +12,7 @@ int loadClassrooms(Classrooms *classrooms, char *fileName) {
         if (classrooms->counter > 0) {
             classrooms->size = classrooms->counter;
             classrooms->classrooms = (Classroom *) malloc(classrooms->size * sizeof(Classroom));
-            for (int i = 0; i < classrooms->counter; i++) {
+            for (int i = 0; i < classrooms->counter; ++i) {
                 fread(&classrooms->classrooms[i], sizeof(Classroom), 1, fp);
                 classrooms->classrooms[i].attendances = (int *) calloc(classrooms->classrooms[i].capacity, sizeof(int));
                 fread(classrooms->classrooms[i].attendances, sizeof(int), classrooms->classrooms[i].capacity, fp);
@@ -25,35 +25,21 @@ int loadClassrooms(Classrooms *classrooms, char *fileName) {
     }
 
     fp = fopen(fileName, "wb");
+
     if (fp != NULL) {
         classrooms->counter = 0;
-        classrooms->size = CLASSROOMS_INITIAL_SIZE;
-        classrooms->classrooms = (Classroom *) malloc(CLASSROOMS_INITIAL_SIZE * sizeof(Classroom));
+        classrooms->size = 0;
+        classrooms->classrooms = NULL;
         fclose(fp);
     }
 
     return 0;
 }
 
-void saveClassrooms(Classrooms *classrooms, char *fileName) {
-    FILE *fp = fopen(fileName, "wb");
-
-    if (fp != NULL) {
-        fwrite(&classrooms->counter, sizeof(int), 1, fp);
-
-        for (int i = 0; i < classrooms->counter; i++) {
-            fwrite(&classrooms->classrooms[i], sizeof(Classroom), 1, fp);
-            fwrite(classrooms->classrooms[i].attendances, sizeof(int), classrooms->classrooms[i].capacity, fp);
-        }
-
-        fclose(fp);
-    }
-}
-
 int insertClassroom(Classrooms *classrooms, char *name, int capacity) {
-    for (int i = 0; i < classrooms->counter; i++) {
+    for (int i = 0; i < classrooms->counter; ++i) {
         if (strcmp(classrooms->classrooms[i].name, name) == 0) {
-            return 0;
+            return 1;
         }
     }
 
@@ -74,19 +60,26 @@ int insertClassroom(Classrooms *classrooms, char *name, int capacity) {
     classrooms->classrooms[classrooms->counter].occupation = 0;
     strcpy(classrooms->classrooms[classrooms->counter].name, name);
     classrooms->classrooms[classrooms->counter].attendances = (int *) calloc(
-            classrooms->classrooms[classrooms->counter].capacity, sizeof(int));
-
+            classrooms->classrooms[classrooms->counter].capacity * sizeof(int));
     classrooms->counter++;
 
     return 1;
 }
 
+Classroom *searchClassroom(Classrooms *classrooms, char *name) {
+    for (int i = 0; i < classrooms->counter; ++i) {
+        if (strcmp(classrooms->classrooms[i].name, name) == 0) {
+            return &classrooms->classrooms[i];
+        }
+    }
+}
+
 int removeClassroom(Classrooms *classrooms, char *name) {
-    for (int i = 0; i < classrooms->counter; i++) {
+    for (int i = 0; i < classrooms->counter; ++i) {
         if (strcmp(classrooms->classrooms[i].name, name) == 0) {
             free(classrooms->classrooms[i].attendances);
 
-            for (int j = i; j < classrooms->counter - 1; j++) {
+            for (int j = i; j < classrooms->counter - 1; ++j) {
                 classrooms->classrooms[j] = classrooms->classrooms[j + 1];
             }
 
@@ -104,21 +97,13 @@ int removeClassroom(Classrooms *classrooms, char *name) {
     return 0;
 }
 
-Classroom *searchClassroom(Classrooms *classrooms, char *name) {
-    for (int i = 0; i < classrooms->counter; ++i) {
-        if (strcmp(classrooms->classrooms[i].name, name) == 0) {
-            return &classrooms->classrooms[i];
-        }
-    }
-}
-
 void listClassrooms(Classrooms classrooms) {
     for (int i = 0; i < classrooms.counter; ++i) {
-        printf("Capacity %d", classrooms.classrooms[i].capacity);
-        printf("Occupation %d", classrooms.classrooms[i].occupation);
-        printf("Occupation %s", classrooms.classrooms[i].name);
+        printf("Capacity: %d", classrooms.classrooms[i].capacity);
+        printf("Occupation: %d", classrooms.classrooms[i].occupation);
+        printf("Name: %s", classrooms.classrooms[i].name);
         for (int j = 0; j < classrooms.classrooms[i].capacity; ++j) {
-            printf("Attendance %d: %d\n", j + 1, classrooms.classrooms[i].attendances[j]);
+            printf("Attendances: %d/%d", j + 1, classrooms.classrooms[i].attendances[j]);
         }
     }
 }
@@ -127,24 +112,43 @@ int freeClassrooms(Classrooms *classrooms) {
     if (classrooms->classrooms) {
         free(classrooms->classrooms);
         classrooms->classrooms = NULL;
+        return 1;
     }
 
-    classrooms = NULL;
+    classrooms->classrooms = NULL;
+
+    return 0;
 }
 
 int markAttendances(Classrooms *classrooms, char *name) {
-    for (int i = 0; i < classrooms->counter; i++) {
+    for (int i = 0; i < classrooms->counter; ++i) {
         if (strcmp(classrooms->classrooms[i].name, name) == 0) {
-            for (int j = 0; j < classrooms->classrooms[i].capacity; j++) {
+            for (int j = 0; j < classrooms->classrooms[i].capacity; ++j) {
                 classrooms->classrooms[i].attendances[j] = 1;
             }
-
-            classrooms->classrooms[i].occupation = classrooms->classrooms[i].capacity;
 
             return 1;
         }
     }
+
+    return 0;
 }
+
+void saveClassrooms(Classrooms *classrooms, char *fileName) {
+    FILE *fp = fopen(fileName, "wb");
+
+    if (fp != NULL) {
+        fwrite(&classrooms->counter, sizeof(int), 1, fp);
+
+        for (int i = 0; i < classrooms->counter; ++i) {
+            fwrite(&classrooms->classrooms[i], sizeof(Classroom), 1, fp);
+            fwrite(classrooms->classrooms[i].attendances, sizeof(int), classrooms->classrooms[i].capacity, fp);
+        }
+
+        fclose(fp);
+    }
+}
+
 
 int main() {
     int option;
@@ -162,7 +166,7 @@ int main() {
         printf("0 - Exit\n");
         printf("Salas: %d/%d\n", classrooms.counter, classrooms.size);
 
-        option = scanf("%d", option);
+        option = scanf("%d", &option);
 
         switch (option) {
             case 0:

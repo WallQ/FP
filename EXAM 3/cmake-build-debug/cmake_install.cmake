@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/WallQ-/Documents/GitHub/FP/EXAM 2
+# Install script for directory: C:/Users/WallQ-/Desktop/Test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/EXAM_2")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/Test")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/WallQ-/Documents/GitHub/FP/EXAM 2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/WallQ-/Desktop/Test/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
