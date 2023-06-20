@@ -8,6 +8,6 @@
 
 ## License
 
-[MIT](https://github.com/WallQ/FP/blob/main/LICENSE)
+[MIT](https://github.com/WallQ/FP/blob/master/LICENSE)
 
 **ESTG - Escola Superior de Tecnologia e Gestão | Politécnico do Porto**
